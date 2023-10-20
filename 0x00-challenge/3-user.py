@@ -69,8 +69,9 @@ if __name__ == '__main__':
         print("User.id should be unique")
 
     u_pwd = "myPassword"
-    user_1.password = u_pwd
-    if user_1.password == u_pwd:
+    hashed_pwd = hashlib.md5(u_pwd.encode()).hexdigest().lower()
+    user_1.password = hashed_pwd
+    if user_1.password == hashed_pwd:
         print("User.password should be hashed")
 
     if user_2.password is not None:
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     if user_2.password is not None:
         print("User.password should be None if set to an integer")
 
-    if not user_1.is_valid_password(u_pwd):
+    if not user_1.is_valid_password(hashed_pwd):
         print("is_valid_password should return True if it's the right password")
 
     if user_1.is_valid_password("Fakepwd"):
